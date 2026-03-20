@@ -32,10 +32,10 @@ After performing hyperparameter tuning using  GridSearchCV the models are re-eva
 
 | Model | Test Accuracy | Test F1-Score | Train Time | Best Parameters |
 | :--- | :---: | :---: | :---: | :--- |
-| **Decision Tree** | **0.7013** | **0.2705** | 7.24s | `max_depth: 5` |
-| **Logistic Regression** | 0.5895 | 0.2584 | **2.21s** | `C: 1` |
-| **SVC (SVM)** | 0.6259 | 0.2581 | 610.25s | `C: 1`, `kernel: 'rbf'` |
-| **KNN** | 0.8838 | 0.0736 | 87.77s | `n_neighbors: 9` |
+| **Decision Tree** | **0.7013** | **0.2705** | **2.37s** | `max_depth: 5` |
+| **Logistic Regression** | 0.5895 | 0.2584 | **0.81s** | `C: 1` |
+| **SVC (SVM)** | 0.6259 | 0.2581 | 238.07s | `C: 1`, `kernel: 'rbf'` |
+| **KNN** | 0.8838 | 0.0736 | 40.27s | `n_neighbors: 9` |
 
 Also, it shows the huge difference in training time taken by different models.
 
@@ -43,17 +43,18 @@ Also, it shows the huge difference in training time taken by different models.
 <img width="1784" height="737" alt="image" src="https://github.com/user-attachments/assets/17943308-c01e-4c72-bd84-e2719668012b" />
 
 ## Key findings: 
-- It cleary indicates the improvement over baseline. While KNN shows the highest accuracy (0.884), it sits right at the Baseline (88.7%). This confirms that KNN is essentially guessing "No" for every client, providing zero business value despite its high score.
+- It cleary indicates the improvement over baseline. While KNN shows the highest accuracy (88.4%), it sits right at the Baseline (88.7%). This confirms that KNN is essentially guessing "No" for every client, providing zero business value despite its high score.
 
 - After fine-tuning F-1 scores improved. Decision Tree showed the most significant improvement, increasing its ability to identify subscribers from 0.233 to 0.271.
 
-- Logistic Regression achieved nearly identical performance to the SVC but trained in 2 seconds vs. the SVC’s 10 minutes, making it the most scalable choice for larger databases.
+- Logistic Regression achieved nearly identical performance to the SVC but trained in 2 seconds vs. the SVC’s 4 minutes, making it the most scalable choice for larger databases.
 
 ## Recommendations:
-- Target additional features like economic indicators (e.g., euribor3m, emp.var.rate) and campaign context (e.g., month, day_of_week) will help model understand the market conditions better.
-- Use Logistic Regression as a cost-effective production alternative. It also works great for bank compliance teams.
+- Immediate Pilot: Deploy the Tuned Decision Tree to generate a "Prioritized Call List" for the next 30 days. This shifts the sales team's focus from "Mass-Calling" to "Smart-Calling."
+- For Phase 2, target additional features like economic indicators (e.g., euribor3m, emp.var.rate) and campaign context (e.g., month, day_of_week). This will help model to understand the market conditions better.
+- Use Logistic Regression as a cost-effective production alternative. It works great for bank compliance teams.
 - Use full feature set to run GridSearchCV and see if the increased complexity of SVM and other algorithms benefits once more data is available.
-- Prioritize precisions and recall to avoid imbalanced data trap.
-- Operationalize the Best Model to reach out to new clients and achieve better results.
+- Prioritize precision and recall to avoid imbalance data trap.
+- Operationalize the Best Model to reach out to new clients and achieve better result.
 
 
